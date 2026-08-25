@@ -171,7 +171,7 @@ This work could have adult content. If <span style="color:#ff0000;">y</span>ou<s
       <summary><span><strong>"昨天下午</strong>，我在这附近被她搭讪要过签名，而当我远远<span class="bubble-wrap">听到尖叫声的时候<span class="bubble">这附近可能有其他目击者存在？</span></span>，我掉头回来，只看见了散落在地的<u>签名本</u>。"</span></summary>
       <div>
         <p>雅修特拉："光，你方便出示一下签名本吗？"</p>
-        <p>光："都在这里……我一点没动，你<u>翻</u>吧。"</p><br>
+        <p>光："都在这里……我一点没动，你<u><strong>翻</strong></u>吧。"</p><br>
 
 <!-- 模块 A：小封面触发 -->
 <div class="book-trigger" id="bookTrigger" title="打开签名本">
@@ -184,14 +184,14 @@ This work could have adult content. If <span style="color:#ff0000;">y</span>ou<s
 <!-- 模块 B：全屏遮罩 + 书本 -->
 <div class="book-modal" id="bookModal" aria-hidden="true">
     <div class="book-backdrop"></div>
+    <button class="book-close" id="bookClose" title="关闭">×</button>
+
+    <!-- 旁白浮层（左上角，由 JS 从 HTML 读取渲染） -->
+    <div class="book-narration" id="narrationLayer"></div>
+    <!-- crew 气泡浮层（右侧，由 JS 从 HTML 读取渲染） -->
+    <div class="book-chat" id="crewLayer"></div>
+
     <div class="book-modal-inner">
-        <button class="book-close" id="bookClose" title="关闭">×</button>
-
-        <!-- 旁白浮层（左上角，由 JS 从 HTML 读取渲染） -->
-        <div class="book-narration" id="narrationLayer"></div>
-        <!-- crew 气泡浮层（右侧，由 JS 从 HTML 读取渲染） -->
-        <div class="book-chat" id="crewLayer"></div>
-
         <div class="bookmat">
             <div class="book" id="flipbook">
 
@@ -368,7 +368,7 @@ margin: 0 0 24px 24px;
         </div><!-- /.bookmat -->
     </div><!-- /.book-modal-inner -->
 </div><!-- /.book-modal -->
-
+<br>
     </details>
     </details>
 
@@ -407,7 +407,7 @@ margin: 0 0 24px 24px;
   <summary><span>&emsp;可露儿：关于情侣……</span></summary>
   <div>
     <details class="hint">
-      <summary><span>“我能感觉到……这里飘荡的情感十分粘腻，和我们上次来到这里时很不一样。”</span></summary>
+      <summary><span>“我能感觉到……这里飘荡的情感十分粘腻，和我们上次来到这里时很不一样。</span></summary>
       <p>古拉哈提亚：“我们上次来到九号解决方案还是三四天前的事……短短几天的时间，竟然发生了这么大的变化……”</p>
       <p>谢尔微微蹙眉道：“可在我的记忆里，上次见到你们已经是三个月前的事了。”</p>
       <details class="hint prose"><summary><span>斯菲因轻轻摇头：“我记忆里上次相遇也是数日之前的事。永护塔内部不见日月星辰，很容易扰乱人对时间的感知。我也是随同拉马提一起去往图莱尤拉，再度望见真实的星空，才得以校准流逝的时间。”</span></summary><div>
@@ -417,7 +417,7 @@ margin: 0 0 24px 24px;
     </details></details>
 
     <details class="hint prose">
-      <summary><span>“人们渴求相恋，期盼相伴，不愿别离的心意四处弥漫……到底是为什么呢？”</span></summary>
+      <summary><span>渴求相恋，期盼相伴，不愿别离的心意四处弥漫……到底是为什么呢？”</span></summary>
       <div>
         <p>阿尔菲诺：“我在萨雷安魔法大学的时候曾经听过一个说法，叫‘战后婴儿潮’……难道是因为这里在社会稳定之后，灵魂资源不足，人们对生命和死亡存在恐慌和迷茫，所以人们想要用新生对抗死亡的恐惧吗？”</p>
         <p>可露儿：“不……不只是这样……我的超越之力说，这种粘腻的感觉更像……<span class="bubble-wrap">遇到了一群发情水牛在抛射信息素的感觉。而且……”<span class="bubble">你的意思是……蛮神吗？</span></span></p>
@@ -512,8 +512,8 @@ margin: 0 0 24px 24px;
       <!-- /#workskin -->
     </div>
     <!-- /.read-container -->
-	  <hr>
-    <div class="novel-sub">我的大头对我的小头很不好。<br>第一次写轻度悬疑推理，有点担心写的怎么样……<br>尤其是线索放出的节奏，过快过慢我都很是担心。<br>多谢您的反馈。以防万一加了一个密码验证</div>
+     <hr>
+    <div class="novel-sub"><br>我的大头对我的小头很不好。<br>第一次写轻度悬疑推理，有点担心写的怎么样……<br>尤其是线索放出的节奏，过快过慢我都很是担心。<br>多谢您的反馈。以防万一加了一个密码验证</div>
     <!-- ===== 底部导航 ===== -->
     <div class="bottom-bar" id="bottom">
       <a class="btn" href="https://archiveofourown.org/works/81193126/chapters/236535716">上一章</a>
