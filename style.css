@@ -1,5 +1,6 @@
 /* ==============================================================
-   ═══ Ⅰ. 网页框架样式（布局 / 导航 / 容器 / 响应式） ═══ 0823
+   ═══ Ⅰ. 网页框架样式（布局 / 导航 / 容器 / 响应式） ═══ 0825
+  C:\AIworking\code\bring-him-back-edit\website 开发版
    ============================================================== */
 
 /* ---------- 全局重置 ---------- */
@@ -9,6 +10,7 @@
     box-sizing: border-box;
 }
 
+/* ---------- 基础样式（移动优先） ---------- */
 body {
     background: #ffffff;
     color: #222222;
@@ -22,9 +24,9 @@ body {
 .top-bar,
 .bottom-bar {
     background: #fff;
-    padding: 10px 16px;
+    padding: 0.5rem 0.75rem; /* 统一使用相对单位 */
     display: flex;
-    gap: 8px;
+    gap: 0.5rem;
     flex-wrap: wrap;
     border-bottom: 1px solid #eee;
 }
@@ -34,13 +36,14 @@ body {
 }
 
 .btn {
-    padding: 6px 14px;
+    padding: 0.5rem 1.25rem;
     border: 1px solid #cccccc;
     background: #f8f8f8;
     border-radius: 4px;
     font-size: 1em;
+    line-height: o;
     color: #333;
-    cursor: default;
+    cursor: pointer; /* 改为 pointer 更符合交互预期 */
     user-select: none;
     transition: background 0.15s;
 }
@@ -57,7 +60,7 @@ body {
 
 /* ---------- 标题 ---------- */
 .novel-title {
-    font-size: 2em;
+    font-size: 2rem;
     font-weight: 600;
     text-align: center;
     margin: 0 0 6px 0;
@@ -72,25 +75,31 @@ body {
     letter-spacing: 0.06em;
 }
 
-/* ---------- 响应式 ---------- */
-@media (max-width: 480px) {
+/* ---------- 响应式：768px 及以下统一为手机适配 ---------- */
+@media (max-width: 768px) {
+    /* 阅读容器：减小左右内边距，充分利用屏幕宽度 */
     .read-container {
-        padding: 16px 12px;
+        padding: 20px 16px;
     }
+
+    /* 标题：适当缩小，避免在小屏上换行 */
     .novel-title {
-        font-size: 1.25em;
+        font-size: 1.5rem;
     }
+
+    /* 按钮：稍微缩小，节省横向空间 */
     .btn {
-        padding: 5px 10px;
+        padding: 0.3rem 0.4rem;
         font-size: 0.9em;
     }
+
+    /* 顶部/底部栏：内边距与容器对齐，gap 缩小 */
     .top-bar,
     .bottom-bar {
-        padding: 8px 12px;
-        gap: 6px;
+        padding: 0.5rem 16px; /* 与 .read-container 的 padding 保持一致 */
+        gap: 0.4rem;
     }
 }
-
 
 /* ==============================================================
    ═══ Ⅱ. #workskin 内容样式（小说正文 / 特效 / 交互） ═══
@@ -639,17 +648,6 @@ body {
     0 3px 6px rgba(0, 0, 0, 0.45);
 }
 
-#workskin .notebook .crystal::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 6px;
-  width: 8px;
-  height: 4px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
-  transform: rotate(-24deg);
-}  
 
 /* ===== 便签容器 ===== */
 #workskin .pages {
@@ -801,8 +799,8 @@ text-align: center;
    ================================================================ */
 .book-trigger {
     cursor: pointer;
-    width: 340px;
-    height: 460px;
+    width: 200px;
+    height: 270px;
     transition: transform .25s ease, filter .25s ease;
     filter: drop-shadow(0 16px 40px rgba(0,0,0,.55));
 }
@@ -845,7 +843,7 @@ text-align: center;
   position: relative; 
     width: min(1100px, 90vw);
     height: min(760px, 80vh);
-    aspect-ratio: 1100 / 760;
+    aspect-ratio: 1100 / 760
     /* background: #1a1a1a*/; border-radius: 8px; box-shadow: 0 25px 80px rgba(0,0,0,.6);
     display: flex; align-items: center; justify-content: center; overflow: hidden;
     transition: opacity .25s ease, transform .25s ease;

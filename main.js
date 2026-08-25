@@ -1,5 +1,5 @@
-/**
- * main.js
+/** 正式版
+ * code/bring-him-back-edit/website/main.js
  * 负责 DAY6 GitHub Pages 版本的所有交互增强：
  *  1. 3D 弹层翻书（从正文笔记本提取内容）
  *  2. 顶层场景证词手风琴（开一个收其他）
@@ -28,7 +28,7 @@
    ================================================================ */
 
 const modal    = $('#bookModal');
-const flipbook = $('#flipbook');
+const flipbook = modal ? $('#flipbook') : null;
 const narrLayer= $('#narrationLayer');
 const crewLayer= $('#crewLayer');
 
@@ -36,6 +36,7 @@ const crewLayer= $('#crewLayer');
    模块 2：初始化（移植自 booklet 引擎，仅设 z-index / 初始可点）
    ================================================================ */
 function initBook() {
+    if (!flipbook) return;
     // 偶数页（正面）从外到内递减 z-index，保证翻页层次正确
     const allPages = $$('.bookpage', flipbook);
     for (let i = 0; i < allPages.length; i++) {
@@ -44,6 +45,7 @@ function initBook() {
     markClickable(0);
 }
 function markClickable(index) {
+    if (!flipbook) return;
     $$('.bookpage', flipbook).forEach(p => p.classList.remove('clickable'));
     const p = $$('.bookpage', flipbook)[index];
     if (p) p.classList.add('clickable');
@@ -149,6 +151,7 @@ function appendNarration(text) {
 function renderSpread(pageIndices) {
     clearChat();
     if (!pageIndices || !pageIndices.length) return;
+    if (!narrLayer || !crewLayer) return;
     // 旁白（合并该跨页两页，按页码升序）
     getNarration(pageIndices.slice().sort((a,b)=>a-b)).forEach(t => appendNarration(t));
     // crew（逐条从右滑入，每条出现 10s 后自动移除）
@@ -162,6 +165,7 @@ function renderSpread(pageIndices) {
    模块 6：翻书点击（点正面往前翻 / 点背面往回翻 / 点末页合书）
    ================================================================ */
 function initFlipClick() {
+    if (!flipbook) return;
     markClickable(0);
     flipbook.addEventListener('click', function (e) {
         const page = e.target.closest('.bookpage');
@@ -210,6 +214,7 @@ function initFlipClick() {
    模块 7：打开 / 关闭
    ================================================================ */
 function openModal() {
+    if (!modal || !flipbook) return;
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -220,6 +225,7 @@ function openModal() {
     renderSpread([0]);
 }
 function closeModal() {
+    if (!modal) return;
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
@@ -229,13 +235,20 @@ function closeModal() {
 /* ================================================================
    模块 8：绑定触发
    ================================================================ */
-initBook();
-initFlipClick();
-$('#bookTrigger').addEventListener('click', openModal);
-$('#bookClose').addEventListener('click', closeModal);
-$('.book-backdrop', modal).addEventListener('click', closeModal);
+if (modal && flipbook) {
+    initBook();
+    initFlipClick();
+}
+const bookTrigger = $('#bookTrigger');
+const bookClose = $('#bookClose');
+if (bookTrigger) bookTrigger.addEventListener('click', openModal);
+if (bookClose) bookClose.addEventListener('click', closeModal);
+if (modal) {
+  const backdrop = $('.book-backdrop', modal);
+  if (backdrop) backdrop.addEventListener('click', closeModal);
+}
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) closeModal();
 });
 
     /* ============================================================
@@ -337,6 +350,7 @@ groupTokens.set(out, myToken);
         if (!out) return;
         // 初始化 token
         groupTokens.set(out, 0);
+        out.innerHTML = '';
 
         radios.forEach(radio => {
             radio.addEventListener('change', function(e) {
@@ -391,16 +405,30 @@ groupTokens.set(out, myToken);
     /* ============================================================
        5.密码验证
        ============================================================ */
-  const maskOverlay = document.getElementById("maskOverlay");
+const maskOverlay = document.getElementById("maskOverlay");
 const passInput = document.getElementById("passInput");
 
-passInput.addEventListener("keydown", e => {
-    if(e.key === "Enter"){
-        if(passInput.value.trim() === "yes,continue"){
-            maskOverlay.style.display = "none";
+// 页面加载时检查是否已通过验证
+window.addEventListener('DOMContentLoaded', function() {
+    if (!maskOverlay || !passInput) return;
+    const passed = localStorage.getItem('adult_verified');
+    if (passed === 'true') {
+        maskOverlay.style.display = 'none';
+    }
+});
+
+if (passInput) {
+    passInput.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            const inputVal = this.value.trim();
+            if (inputVal === "yes,continue") {
+                // 验证通过，存标记到浏览器
+                localStorage.setItem('adult_verified', 'true');
+                if (maskOverlay) maskOverlay.style.display = "none";
             }
         }
     });
+}
 
     /* ============================================================
        初始化入口
